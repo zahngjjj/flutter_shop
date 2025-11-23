@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/pages/Home/index.dart';
+import 'package:flutter_shop/pages/Category/index.dart';
+import 'package:flutter_shop/pages/Cart/index.dart';
+import 'package:flutter_shop/pages/Mine/index.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -32,7 +36,13 @@ class _HomePageState extends State<HomePage> {
   ];
   int _currentIndex = 0;
   List<Widget> _getChildren() {
-    return _tabList.map((item) => Text(item["text"]!)).toList();
+    // return _tabList.map((item) => Text(item["text"]!)).toList();
+    return [
+      HomeView(),
+      CategoryView(),
+      CartView(),
+      MineView(),
+    ];
   }
 
   @override
