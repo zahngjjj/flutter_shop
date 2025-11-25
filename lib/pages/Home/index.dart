@@ -4,6 +4,7 @@ import 'package:flutter_shop/components/Home/HmHot.dart';
 import 'package:flutter_shop/components/Home/HmMoreList.dart';
 import 'package:flutter_shop/components/Home/HmSlider.dart';
 import 'package:flutter_shop/components/Home/HmSuggestion.dart';
+import 'package:flutter_shop/viewmodels/home.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
@@ -13,9 +14,26 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final List<BannerItem> _bannersList = [
+    BannerItem(
+      id: '1',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/1.jpg',
+    ),
+    BannerItem(
+      id: '2',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/2.png',
+    ),
+    BannerItem(
+      id: '3',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg',
+    ),
+  ];
   List<Widget> _buildSlivers() {
     return [
-      SliverToBoxAdapter(child: HmSliderView()),
+      SliverToBoxAdapter(child: HmSliderView(bannerList: _bannersList)),
       SliverToBoxAdapter(child: HmCategoryView()),
       SliverToBoxAdapter(child: HmSuggestionView()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
