@@ -15,27 +15,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<BannerItem> _bannersList = [
-    // BannerItem(
-    //   id: '1',
-    //   imageUrl:
-    //       'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/1.jpg',
-    // ),
-    // BannerItem(
-    //   id: '2',
-    //   imageUrl:
-    //       'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/2.png',
-    // ),
-    // BannerItem(
-    //   id: '3',
-    //   imageUrl:
-    //       'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg',
-    // ),
-  ];
+  List<BannerItem> _bannersList = [];
+  List<CategoryItem> _categoryList = [];
   List<Widget> _buildSlivers() {
     return [
       SliverToBoxAdapter(child: HmSliderView(bannerList: _bannersList)),
-      SliverToBoxAdapter(child: HmCategoryView()),
+      SliverToBoxAdapter(child: HmCategoryView(categoryList: _categoryList)),
       SliverToBoxAdapter(child: HmSuggestionView()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(
@@ -60,10 +45,16 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _feachBannerList();
+    _feachCategoryList();
   }
 
   void _feachBannerList() async {
     _bannersList = await getBannerList();
+    setState(() {});
+  }
+
+  void _feachCategoryList() async {
+    _categoryList = await getCategoryList();
     setState(() {});
   }
 

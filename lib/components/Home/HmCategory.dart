@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/viewmodels/home.dart';
 
 class HmCategoryView extends StatefulWidget {
-  HmCategoryView({Key? key}) : super(key: key);
+  HmCategoryView({Key? key, this.categoryList = const []}) : super(key: key);
+
+  final List<CategoryItem> categoryList;
 
   @override
   _HmCategoryViewState createState() => _HmCategoryViewState();
@@ -14,18 +17,39 @@ class _HmCategoryViewState extends State<HmCategoryView> {
       height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: widget.categoryList.length,
         itemBuilder: (context, index) {
+          final item = widget.categoryList[index];
           return Container(
             alignment: Alignment.center,
-            width: 80,
+            width: 90,
             height: 100,
-            color: Colors.blue,
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: Text(
-              '分类$index',
-              style: TextStyle(fontSize: 16, color: Colors.white),
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    item.picture,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stack) => Container(
+                      width: 60,
+                      height: 60,
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  item.name,
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
           );
         },
