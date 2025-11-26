@@ -30,6 +30,10 @@ class _HmSliderViewState extends State<HmSliderView> {
     // flutter 中获取屏幕宽度的方法
     final screenWidth = MediaQuery.of(context).size.width;
 
+    if (widget.bannerList.isEmpty) {
+      return Container(height: 250);
+    }
+
     return Container(
       height: 250,
       color: Colors.blue,
@@ -40,14 +44,22 @@ class _HmSliderViewState extends State<HmSliderView> {
           widget.bannerList.length,
           (index) => Container(
             color: Colors.white,
-            child: Center(
+              child: Center(
               child: Image.network(
                 widget.bannerList[index].imageUrl,
                 width: screenWidth,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(width: screenWidth, height: 250, color: Colors.black12);
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  debugPrint('IMAGE_ERR ${widget.bannerList[index].imageUrl} $error');
+                  return Container(width: screenWidth, height: 250, color: Colors.grey);
+                },
+              ),
               ),
             ),
-          ),
         ),
         options: CarouselOptions(
           height: 250,
@@ -136,7 +148,7 @@ class _HmSliderViewState extends State<HmSliderView> {
                     color: _current == index ? Colors.white : Colors.white54,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  duration: Duration(milliseconds: 200),
+                  duration: Duration(milliseconds: 300), // 动画时间300毫秒
                 ),
               ),
             ),
