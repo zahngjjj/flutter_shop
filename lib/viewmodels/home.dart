@@ -48,4 +48,131 @@ class CategoryItem {
   }
 }
 
-// 根据JSON编写class和工厂函数
+class SpecialRecommend {
+  String id;
+  String title;
+  List<SpecialSubType> subTypes;
+
+  SpecialRecommend({
+    required this.id,
+    required this.title,
+    required this.subTypes,
+  });
+
+  factory SpecialRecommend.fromJSON(Map<String, dynamic> json) {
+    final id = (json['id'] ?? '').toString();
+    final title = (json['title'] ?? '').toString();
+    final rawSubs = json['subTypes'];
+    List<SpecialSubType> subTypes = [];
+    if (rawSubs is List) {
+      subTypes = rawSubs
+          .where((e) => e is Map<String, dynamic>)
+          .map((e) => SpecialSubType.fromJSON(e as Map<String, dynamic>))
+          .toList();
+    }
+    return SpecialRecommend(id: id, title: title, subTypes: subTypes);
+  }
+
+  get children => null;
+}
+
+class SpecialSubType {
+  String id;
+  String title;
+  GoodsItemsPage goodsItems;
+
+  SpecialSubType({
+    required this.id,
+    required this.title,
+    required this.goodsItems,
+  });
+
+  factory SpecialSubType.fromJSON(Map<String, dynamic> json) {
+    final id = (json['id'] ?? '').toString();
+    final title = (json['title'] ?? '').toString();
+    final itemsJson =
+        json['goodsItems'] as Map<String, dynamic>? ?? <String, dynamic>{};
+    return SpecialSubType(
+      id: id,
+      title: title,
+      goodsItems: GoodsItemsPage.fromJSON(itemsJson),
+    );
+  }
+}
+
+class GoodsItemsPage {
+  int counts;
+  int pageSize;
+  int pages;
+  int page;
+  List<GoodsItem> items;
+
+  GoodsItemsPage({
+    required this.counts,
+    required this.pageSize,
+    required this.pages,
+    required this.page,
+    required this.items,
+  });
+
+  factory GoodsItemsPage.fromJSON(Map<String, dynamic> json) {
+    int parseInt(dynamic v) =>
+        v is int ? v : int.tryParse((v ?? '').toString()) ?? 0;
+    final counts = parseInt(json['counts']);
+    final pageSize = parseInt(json['pageSize']);
+    final pages = parseInt(json['pages']);
+    final page = parseInt(json['page']);
+    final rawItems = json['items'];
+    List<GoodsItem> items = [];
+    if (rawItems is List) {
+      items = rawItems
+          .where((e) => e is Map<String, dynamic>)
+          .map((e) => GoodsItem.fromJSON(e as Map<String, dynamic>))
+          .toList();
+    }
+    return GoodsItemsPage(
+      counts: counts,
+      pageSize: pageSize,
+      pages: pages,
+      page: page,
+      items: items,
+    );
+  }
+}
+
+class GoodsItem {
+  String id;
+  String name;
+  String? desc;
+  String price;
+  String picture;
+  int orderNum;
+
+  GoodsItem({
+    required this.id,
+    required this.name,
+    this.desc,
+    required this.price,
+    required this.picture,
+    required this.orderNum,
+  });
+
+  factory GoodsItem.fromJSON(Map<String, dynamic> json) {
+    final id = (json['id'] ?? '').toString();
+    final name = (json['name'] ?? '').toString();
+    final desc = json['desc'] == null ? null : (json['desc']).toString();
+    final price = (json['price'] ?? '').toString();
+    final picture = (json['picture'] ?? '').toString();
+    final orderNum = json['orderNum'] is int
+        ? json['orderNum'] as int
+        : int.tryParse((json['orderNum'] ?? '').toString()) ?? 0;
+    return GoodsItem(
+      id: id,
+      name: name,
+      desc: desc,
+      price: price,
+      picture: picture,
+      orderNum: orderNum,
+    );
+  }
+}

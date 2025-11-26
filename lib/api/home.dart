@@ -21,3 +21,10 @@ Future<List<CategoryItem>> getCategoryList() async {
       .map((item) => CategoryItem.fromJSON(item as Map<String, dynamic>))
       .toList();
 }
+
+// 特别推荐
+Future<SpecialRecommend> getPreference() async {
+  final response = await dioRequest.get(HttpConstants.PREFERENCE_LIST);
+  dev.log(jsonEncode(response), name: 'home_api');
+  return SpecialRecommend.fromJSON(response as Map<String, dynamic>);
+}

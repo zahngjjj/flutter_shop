@@ -13,5 +13,6 @@ class GlobConstants {
 // 接口的常量数据
 class HttpConstants {
   static const String BANNER_LIST = '/home/banner';
-  static const String CATEGORY_LIST = '/home/category/head'; // 分了列表
+  static const String CATEGORY_LIST = '/home/category/head'; // 分类列表地址
+  static const String PREFERENCE_LIST = '/hot/preference'; // 特惠推荐地址
 }

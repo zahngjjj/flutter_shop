@@ -17,11 +17,18 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<BannerItem> _bannersList = [];
   List<CategoryItem> _categoryList = [];
+  SpecialRecommend? _preference;
+
   List<Widget> _buildSlivers() {
     return [
       SliverToBoxAdapter(child: HmSliderView(bannerList: _bannersList)),
       SliverToBoxAdapter(child: HmCategoryView(categoryList: _categoryList)),
-      SliverToBoxAdapter(child: HmSuggestionView()),
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: HmSuggestionView(preference: _preference),
+        ),
+      ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(
         child: Padding(
@@ -46,6 +53,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     _feachBannerList();
     _feachCategoryList();
+    _feachPreference();
   }
 
   void _feachBannerList() async {
@@ -55,6 +63,11 @@ class _HomeViewState extends State<HomeView> {
 
   void _feachCategoryList() async {
     _categoryList = await getCategoryList();
+    setState(() {});
+  }
+
+  void _feachPreference() async {
+    _preference = await getPreference();
     setState(() {});
   }
 
