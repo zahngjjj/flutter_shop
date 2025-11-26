@@ -18,6 +18,8 @@ class _HomeViewState extends State<HomeView> {
   List<BannerItem> _bannersList = [];
   List<CategoryItem> _categoryList = [];
   SpecialRecommend? _preference;
+  SpecialRecommend? _oneStop;
+  SpecialRecommend? _inVogue;
 
   List<Widget> _buildSlivers() {
     return [
@@ -36,9 +38,13 @@ class _HomeViewState extends State<HomeView> {
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: HmHotView()),
+              Expanded(
+                child: HmHotView(oneStop: _oneStop, title: '爆款推荐'),
+              ),
               SizedBox(width: 10),
-              Expanded(child: HmHotView()),
+              Expanded(
+                child: HmHotView(oneStop: _inVogue, title: '一站买全'),
+              ),
             ],
           ),
         ),
@@ -54,6 +60,8 @@ class _HomeViewState extends State<HomeView> {
     _feachBannerList();
     _feachCategoryList();
     _feachPreference();
+    _feachOneStop();
+    _feachInVogue();
   }
 
   void _feachBannerList() async {
@@ -68,6 +76,16 @@ class _HomeViewState extends State<HomeView> {
 
   void _feachPreference() async {
     _preference = await getPreference();
+    setState(() {});
+  }
+
+  void _feachOneStop() async {
+    _oneStop = await getOneStop();
+    setState(() {});
+  }
+
+  void _feachInVogue() async {
+    _inVogue = await getInVogue();
     setState(() {});
   }
 

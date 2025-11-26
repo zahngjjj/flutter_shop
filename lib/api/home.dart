@@ -28,3 +28,17 @@ Future<SpecialRecommend> getPreference() async {
   dev.log(jsonEncode(response), name: 'home_api');
   return SpecialRecommend.fromJSON(response as Map<String, dynamic>);
 }
+
+// 一站买全
+Future<SpecialRecommend> getOneStop() async {
+  final response = await dioRequest.get(HttpConstants.ONE_STOP_LIST);
+  dev.log(jsonEncode(response), name: 'home_api');
+  return SpecialRecommend.fromJSON(response as Map<String, dynamic>);
+}
+
+// 爆款推荐
+Future<SpecialRecommend> getInVogue() async {
+  final response = await dioRequest.get(HttpConstants.IN_VOGUE_LIST);
+  dev.log(jsonEncode(response), name: 'home_api');
+  return SpecialRecommend.fromJSON(response as Map<String, dynamic>);
+}
