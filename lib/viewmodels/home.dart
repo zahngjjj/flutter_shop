@@ -176,3 +176,37 @@ class GoodsItem {
     );
   }
 }
+
+class RecommendItem {
+  String id;
+  String name;
+  String price;
+  String picture;
+  int payCount;
+
+  RecommendItem({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.picture,
+    required this.payCount,
+  });
+
+  factory RecommendItem.fromJSON(Map<String, dynamic> json) {
+    final id = (json['id'] ?? '').toString();
+    final name = (json['name'] ?? '').toString();
+    final price = (json['price'] ?? '').toString();
+    final picture = (json['picture'] ?? '').toString();
+    final payCount = json['payCount'] is int
+        ? json['payCount'] as int
+        : int.tryParse((json['payCount'] ?? '').toString()) ?? 0;
+    return RecommendItem(
+      id: id,
+      name: name,
+      price: price,
+      picture: picture,
+      payCount: payCount,
+    );
+  }
+}
+

@@ -42,3 +42,15 @@ Future<SpecialRecommend> getInVogue() async {
   dev.log(jsonEncode(response), name: 'home_api');
   return SpecialRecommend.fromJSON(response as Map<String, dynamic>);
 }
+
+// 推荐列表
+Future<List<RecommendItem>> getRecommendList(queryParameters) async {
+  final response = await dioRequest.get(
+    HttpConstants.RECOMMEND_LIST,
+    queryParameters: queryParameters,
+  );
+  dev.log(jsonEncode(response), name: 'home_api');
+  return (response as List)
+      .map((item) => RecommendItem.fromJSON(item as Map<String, dynamic>))
+      .toList();
+}

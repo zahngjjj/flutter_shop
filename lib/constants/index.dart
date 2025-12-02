@@ -17,4 +17,5 @@ class HttpConstants {
   static const String PREFERENCE_LIST = '/hot/preference'; // 特惠推荐地址
   static const String ONE_STOP_LIST = '/hot/oneStop'; // 一站买全地址
   static const String IN_VOGUE_LIST = '/hot/inVogue'; // 爆款推荐地址
+  static const String RECOMMEND_LIST = '/home/recommend'; // 爆款推荐地址
 }

@@ -20,6 +20,7 @@ class _HomeViewState extends State<HomeView> {
   SpecialRecommend? _preference;
   SpecialRecommend? _oneStop;
   SpecialRecommend? _inVogue;
+  List<RecommendItem> _recommendList = [];
 
   List<Widget> _buildSlivers() {
     return [
@@ -50,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      HmMoreListView(),
+      HmMoreListView(RecommendList: _recommendList),
     ];
   }
 
@@ -62,6 +63,7 @@ class _HomeViewState extends State<HomeView> {
     _feachPreference();
     _feachOneStop();
     _feachInVogue();
+    _feachRecommendList();
   }
 
   void _feachBannerList() async {
@@ -86,6 +88,11 @@ class _HomeViewState extends State<HomeView> {
 
   void _feachInVogue() async {
     _inVogue = await getInVogue();
+    setState(() {});
+  }
+
+  void _feachRecommendList() async {
+    _recommendList = await getRecommendList({'limit': 10});
     setState(() {});
   }
 
